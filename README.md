@@ -1,2 +1,2 @@
 # COMP586-GroupProject
-Inventory Management System
+Smart Home System
