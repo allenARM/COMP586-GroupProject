@@ -13,8 +13,6 @@ int main()
 
     Console.WriteLine(speaker.GetType());
 
-    //controller.changeColor(divce, Color);
-
     return 0;
 }
 
@@ -76,8 +74,8 @@ public class Light : ADevice, IDevice
     public void setColor(Color color) { this.color = color; }
 }
 
-enum ThermostatStatus { off, heat, cool}
-enum OutSideWeather { sunny, cloudy, rainy, storm, apocalypse }
+public enum ThermostatStatus { off, heat, cool}
+public enum OutSideWeather { sunny, cloudy, rainy, storm, apocalypse }
 
 public class Thermostat : ADevice, IDevice
 {
@@ -85,5 +83,45 @@ public class Thermostat : ADevice, IDevice
     private int outsideTemp;
     private int tempTarget;
     private ThermostatStatus thermostatStatus;
-    private OutSideWeather OutSideWeather;
+    private OutSideWeather outSideWeather;
+
+    public void setInsideTemp(int temp) => this.insideTemp = temp;
+    public void setOutsideTemp(int temp) => this.outsideTemp = temp;
+    public void setTempTarget(int temp) => this.tempTarget = temp;
+    public void setThermostatStatus(ThermostatStatus tss) => this.thermostatStatus = tss;
+    public void setOutSideWeather(OutSideWeather osw) => this.outSideWeather = osw;
+
+    public int getInsideTemp() { return this.insideTemp; }
+    public int getOutsideTemp() { return this.outsideTemp; }
+    public int getTempTarget() { return this.tempTarget; }
+    public ThermostatStatus GetThermostatStatus() { return this.thermostatStatus; }
+    public OutSideWeather GetOutSideWeather() { return this.outSideWeather; }
+}
+
+public class SmartTV : ADevice, IDevice
+{
+    private int channel;
+    public void setChannel(int channel) { this.channel = channel; }
+}
+
+public class Garage : ADevice, IDevice
+{
+    private Boolean closed;
+
+    public void tuggleGate() { this.closed = !this.closed; }
+    public Boolean isClosed() { return this.closed; }
+}
+
+public class Locker : ADevice, IDevice
+{
+    private Boolean closed;
+    public void tuggleDoor() => this.closed = !this.closed;
+    public Boolean isClosed() { return this.closed; }
+}
+
+public class Camera : ADevice, IDevice
+{
+    private Boolean recording;
+    public void tuggleCamera() => this.recording = !this.recording;
+    public Boolean isRecording() { return this.recording; }
 }
