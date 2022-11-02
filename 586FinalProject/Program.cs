@@ -104,24 +104,24 @@ public class SmartTV : ADevice, IDevice
     public void setChannel(int channel) { this.channel = channel; }
 }
 
-public class Garage : ADevice, IDevice
+public class Gate : ADevice, IDevice
 {
     private Boolean closed;
 
-    public void tuggleGate() { this.closed = !this.closed; }
-    public Boolean isClosed() { return this.closed; }
-}
-
-public class Locker : ADevice, IDevice
-{
-    private Boolean closed;
-    public void tuggleDoor() => this.closed = !this.closed;
+    public void tuggle() { this.closed = !this.closed; }
     public Boolean isClosed() { return this.closed; }
 }
 
 public class Camera : ADevice, IDevice
 {
     private Boolean recording;
-    public void tuggleCamera() => this.recording = !this.recording;
+    public void tuggle() => this.recording = !this.recording;
     public Boolean isRecording() { return this.recording; }
+}
+
+public class Outlet : ADevice, IDevice
+{
+    private Boolean powered;
+    public void tuggle() => this.powered = !this.powered;
+    public Boolean isPowered() { return this.powered; }
 }
