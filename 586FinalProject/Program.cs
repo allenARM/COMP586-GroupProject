@@ -3,9 +3,10 @@
 int main()
 {
     IDevice speaker = new Speaker();
-    IDevice device1 = new Light();
+    IDevice light = new Light();
 
     speaker.getLocation();
+    speaker.setVolume();
 
     Controller controller = new Controller();
 
@@ -47,6 +48,8 @@ public interface IDevice
 public abstract class ADevice
 {
     private string location = "default";
+    //if status true means device is on
+    //if status false means device is off
     private Boolean status;
 
     public string getLocation() { return this.location; }
@@ -55,7 +58,6 @@ public abstract class ADevice
     public Boolean getStatus() { return this.status; }
     public void setStatus(Boolean status) { this.status = status; }
 }
-
 
 public class Speaker : ADevice, IDevice
 {
@@ -101,27 +103,31 @@ public class Thermostat : ADevice, IDevice
 public class SmartTV : ADevice, IDevice
 {
     private int channel;
+    private Speaker speaker;
+
+    public void setVolume(int volume) { speaker.setVolume(volume); }
     public void setChannel(int channel) { this.channel = channel; }
 }
 
-public class Gate : ADevice, IDevice
+public class GateController : ADevice, IDevice
 {
     private Boolean closed;
 
-    public void tuggle() { this.closed = !this.closed; }
+    public void toggle() { this.closed = !this.closed; }
     public Boolean isClosed() { return this.closed; }
 }
 
 public class Camera : ADevice, IDevice
 {
     private Boolean recording;
-    public void tuggle() => this.recording = !this.recording;
+    public void toggle() => this.recording = !this.recording;
     public Boolean isRecording() { return this.recording; }
 }
 
 public class Outlet : ADevice, IDevice
 {
+    //powered is true if powering other device
     private Boolean powered;
-    public void tuggle() => this.powered = !this.powered;
+    public void toggle() => this.powered = !this.powered;
     public Boolean isPowered() { return this.powered; }
 }
