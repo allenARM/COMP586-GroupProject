@@ -24,7 +24,7 @@ public class Controller
 {
     List<Object> devices = new List<Object>();
 
-    //List<Room> rooms = new List<Room>();
+    List<Room> rooms = new List<Room>();
 
     public List<Object> getDevices() { return devices; }
 
@@ -45,26 +45,11 @@ public class Room
     private string location;
 }
 
-//public interface IDevice: ISpeaker, ILight
-//{
-//    public string getLocation();
-//    public void setLocation(string location);
-
-//    public Boolean getStatus();
-//    public void setStatus(Boolean status);
-//}
-
-//public interface ISpeaker
-//{
-//    public int getVolume();
-//    public void setVolume(int volume);
-//}
-
-//public interface ILight
-//{
-//    public Color getColor();
-//    public void setColor(Color color);
-//}
+public class House
+{
+    List<Controller> devices = new List<Controller>();
+    private string HomeName;
+}
 
 public abstract class ADevice
 {
