@@ -2,236 +2,287 @@
 
 int main()
 {
-	House home = new House("House1");
+    //IDevice house = new House("House");
 
-	home.getController().addNewDevice(new Speaker(), "Hallway");
+    House home = new House("House1");
 
-	home.getController().checkIfExists(new Speaker());
+    home.GetController().AddNewDevice(new Speaker(), home.GetRooms(), "Hallway");
 
-	Speaker speaker = (Speaker)home.getController().getDevices()[0];
+    //home.GetController().CheckIfExists(new Speaker());
 
-	Console.WriteLine(speaker.getVolume());
-	speaker.setVolume(99);
-	speaker = (Speaker)home.getController().getDevices()[0];
-	Console.WriteLine(speaker.getVolume());
-	Console.WriteLine(speaker.getLocation());
-	return 0;
+    Speaker speaker = (Speaker)home.GetRooms()[0].GetDevices()[0];
+
+    Console.WriteLine(speaker.Volume);
+    speaker.Volume = 99;
+
+    speaker = (Speaker)home.GetRooms()[0].GetDevices()[0];
+    Console.WriteLine(speaker.Volume);
+    Console.WriteLine(speaker.GetLocation());
+    return 0;
 }
 
 main();
 
 public class Controller
 {
-	List<IDevice> devices = new List<IDevice>();
+    //List<IDevice> devices = new();
+    //List<Room> rooms = new();
 
-	List<Room> rooms = new List<Room>();
+    //public List<IDevice> GetDevices() => devices;
+    //public List<Room> GetRooms() => rooms;
 
-	public List<IDevice> getDevices() { return devices; }
+    /*public Boolean CheckIfExists(object device)
+    {
+        foreach (object d in devices)
+        {
+            if (device.GetType() == d.GetType())
+                return true;
+        }
+        return false;
+    }*/
 
-	public List<Room> getRooms() { return rooms; }
+    public void AddNewDevice(IDevice device, List<Room> rooms, string location)
+    {
+        Boolean roomExists = false;
 
-	public Boolean checkIfExists(Object device)
-	{
-		foreach (Object d in devices)
-		{
-			if (d.GetType() == d.GetType())
-				return true;
-		}
-		return false;
-	}
+        device.SetLocation(location);
 
-	public void addNewDevice(IDevice device, string location)
-	{
-		device.setLocation(location);
-		devices.Add(device);
+        foreach (var room in rooms)
+        {
+            if (room.GetLocation() == location)
+            {
+                room.AddDevice(device);
+                roomExists = true;
+            }
+        }
 
-		Room addToTheRoom = getRoom(location);
-		if (addToTheRoom != null)
-		{
-			addToTheRoom.addDevice(device);
-		}
-		else
-		{
-			Room room = new Room();
-			room.setLocation(location);
-			rooms.Add(room);
-			room.addDevice(device);
-		}
-
-		Room getRoom(string location)
-		{
-			foreach (var r in rooms)
-			{
-				if (r.getLocation() == location)
-					return r;
-			}
-			return null;
-		}
-	}
+        if (!roomExists)
+        {
+            Room newRoom = new();
+            newRoom.SetLocation(location);
+            newRoom.AddDevice(device);
+            rooms.Add(newRoom);
+        }
+    }
 }
 
 public class Room
 {
-	List<IDevice> devices = new List<IDevice>();
-	private string location;
+    List<IDevice> devices;
+    private string? location;
 
-	public void setLocation(string location) { this.location = location; }
-	public string getLocation() { return this.location; }
+    public Room()
+    {
+        devices = new();
+        location = null;
+    }
 
-	public void addDevice(IDevice device) { this.devices.Add(device); } 
-	public Object getDevices() { return this.devices; }
+    public void SetLocation(string location) => this.location = location;
+    public string? GetLocation() => location;
+    public void AddDevice(IDevice device) => devices.Add(device);
+    public List<IDevice> GetDevices() => devices;
 }
 
 public class House
 {
-	public House(string houseName)
-	{
-		this.houseName = houseName;
-	}
-	private Controller controller = new Controller();
-	private string houseName;
+    private List<Room> rooms;
+    private Controller controller;
+    private string houseName;
+    public House(string houseName)
+    {
+        rooms = new();
+        controller = new();
+        this.houseName = houseName;
+    }
 
-	public void setHouseName(string housename) { this.houseName = houseName; }
-
-	public string getHouseName() { return this.houseName; }
-
-	public Controller getController() { return this.controller; }
+    public void SetHouseName(string houseName) { this.houseName = houseName; }
+    public string GetHouseName() => houseName;
+    public Controller GetController() => controller;
+    public List<Room> GetRooms() => rooms;
 }
 
 public interface IDevice
 {
-	public string getLocation();
-	public void setLocation(string location);
+    public string GetLocation();
+    public void SetLocation(string location);
 }
 
 public abstract class ADevice
 {
-	private string location = "default";
-	//if status true means device is on
-	//if status false means device is off
-	private Boolean status;
+    private string location = "default";
+    //if status true means device is on
+    //if status false means device is off
+    private Boolean status;
 
-	public string getLocation() { return this.location; }
-	public void setLocation(string location) { this.location = location; }
 
-	public Boolean getStatus() { return this.status; }
-	public void setStatus(Boolean status) { this.status = status; }
+    public string GetLocation() => location;
+    public void SetLocation(string location) => this.location = location;
+
+    public Boolean GetStatus() => status;
+    public void SetStatus(Boolean status) => this.status = status;
 }
 
 public class Speaker : ADevice, IDevice
 {
-	private int volume;
+    private int volume;
 
-	public Speaker()
-	{
-		this.volume = 50;
-	}
+    public Speaker()
+    {
+        this.volume = 50;
+    }
 
-	public int getVolume() { return this.volume; }
-	public void setVolume(int volume)
-	{
-		if (volume >= 100)
-			this.volume = 100;
-		else if (volume <= 0)
-			this.volume = 0;
-		else
-			this.volume = volume;
-	}
+    public int Volume
+    {
+        get => volume;
+
+        set
+        {
+            if (volume >= 100)
+            {
+                volume = 100;
+            }
+            else if (volume <= 0)
+            {
+                volume = 0;
+            }
+            else
+            {
+                volume = value;
+            }
+
+        }
+    }
 }
 
 public class Light : ADevice, IDevice
 {
-	private Color color;
-	private int brightnessLevel;
+    private Color color;
+    private int brightness;
 
-	public Light()
-	{
-		this.color = Color.WhiteSmoke;
-		this.brightnessLevel = 50;
-	}
-
-	public Color getColor() { return color; }
-	public void setColor(Color color) { this.color = color; }
-
-	public int getBrightness() { return this.brightnessLevel; }
-	public void setBrightness(int brightnessLevel) => this.brightnessLevel = brightnessLevel;
+    public Light()
+    {
+        this.color = Color.WhiteSmoke;
+        this.brightness = 50;
+    }
+    public Color Color
+    {
+        get => color;
+        set => color = value;
+    }
+    public int Brightness
+    {
+        get => brightness;
+        set => brightness = value;
+    }
 }
 
-public enum ThermostatStatus { off, heat, cool}
+public enum ThermostatStatus { off, heat, cool }
 public enum OutSideWeather { sunny, cloudy, rainy, storm, apocalypse }
 
 public class Thermostat : ADevice, IDevice
 {
-	private int insideTemp;
-	private int outsideTemp;
-	private int tempTarget;
-	private ThermostatStatus thermostatStatus;
-	private OutSideWeather outSideWeather;
+    private int insideTemp;
+    private int outsideTemp;
+    private int tempTarget;
+    private ThermostatStatus thermostatStatus;
+    private OutSideWeather outSideWeather;
 
-	public void setInsideTemp(int temp) => this.insideTemp = temp;
-	public void setOutsideTemp(int temp) => this.outsideTemp = temp;
-	public void setTempTarget(int temp) => this.tempTarget = temp;
-	public void setThermostatStatus(ThermostatStatus tss) => this.thermostatStatus = tss;
-	public void setOutSideWeather(OutSideWeather osw) => this.outSideWeather = osw;
+    public Thermostat()
+    {
+        insideTemp = 65;
+        outsideTemp = 80;
+        tempTarget = 75;
+        thermostatStatus = ThermostatStatus.heat;
+        outSideWeather = OutSideWeather.cloudy;
+    }
 
-	public int getInsideTemp() { return this.insideTemp; }
-	public int getOutsideTemp() { return this.outsideTemp; }
-	public int getTempTarget() { return this.tempTarget; }
-	public ThermostatStatus GetThermostatStatus() { return this.thermostatStatus; }
-	public OutSideWeather GetOutSideWeather() { return this.outSideWeather; }
+    public int InsideTemp
+    {
+        get => insideTemp;
+        set => insideTemp = value;
+    }
+
+    public int OutsideTemp
+    {
+        get => outsideTemp;
+        set => outsideTemp = value;
+    }
+
+    public int TempTarget
+    {
+        get => tempTarget;
+        set => tempTarget = value;
+    }
+
+    public ThermostatStatus ThermostatStatus
+    {
+        get => thermostatStatus;
+        set => thermostatStatus = value;
+    }
+
+    public OutSideWeather OutSideWeather
+    {
+        get => outSideWeather;
+        set => outSideWeather = value;
+    }
 }
 
 public class SmartTV : ADevice, IDevice
 {
-	private int channel;
-	private Speaker speaker;
+    private int channel;
+    private Speaker speaker;
 
-	public SmartTV()
-	{
-		this.channel = 0;
-		this.speaker = new Speaker();
-	}
+    public SmartTV()
+    {
+        channel = 0;
+        speaker = new();
+    }
 
-	public void setVolume(int volume) { speaker.setVolume(volume); }
-	public void setChannel(int channel) { this.channel = channel; }
+    public void SetVolume(int volume) => speaker.Volume = volume;
+    public int Channel
+    {
+        get => channel;
+        set => channel = value;
+    }
+    //public void SetChannel(int channel) => this.channel = channel; 
 }
 
-public class GateController : ADevice, IDevice
+public class Gate : ADevice, IDevice
 {
-	private Boolean closed;
+    private Boolean closed;
 
-	public GateController()
-	{
-		this.closed = false;
-	}
+    public Gate()
+    {
+        closed = false;
+    }
 
-	public void toggle() { this.closed = !this.closed; }
-	public Boolean isClosed() { return this.closed; }
+    public void Toggle() => closed = !closed;
+    public Boolean IsClosed() => closed;
 }
 
 public class Camera : ADevice, IDevice
 {
-	private Boolean recording;
+    private Boolean recording;
 
-	public Camera()
-	{
-		this.recording = false;
-	}
+    public Camera()
+    {
+        recording = false;
+    }
 
-	public void toggle() => this.recording = !this.recording;
-	public Boolean isRecording() { return this.recording; }
+    public void Toggle() => recording = !recording;
+    public Boolean IsRecording() => recording;
 }
 
 public class Outlet : ADevice, IDevice
 {
-	//powered is true if powering other device
-	private Boolean powered;
+    //powered is true if powering other device
+    private Boolean powered;
 
-	public Outlet()
-	{
-		this.powered = false;
-	}
+    public Outlet()
+    {
+        powered = false;
+    }
 
-	public void toggle() => this.powered = !this.powered;
-	public Boolean isPowered() { return this.powered; }
+    public void Toggle() => powered = !powered;
+    public Boolean IsPowered() => powered;
 }
