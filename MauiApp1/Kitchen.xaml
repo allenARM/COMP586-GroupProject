@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.Kitchen"
+             BackgroundColor="LightSkyBlue">
+    
+  <ContentPage.MenuBarItems>
+        <MenuBarItem Text="ADD DEVICE">
+
+            <MenuFlyoutItem Text="LightBulb" Clicked="KitchenLight"/>
+            <MenuFlyoutItem Text="Speaker" Clicked="KitchenSpeaker"/>
+            <MenuFlyoutItem Text="TV" Clicked="KitchenTv"/>
+            <MenuFlyoutItem Text="Thermostat" Clicked="KitchenThermostat"/>
+            <MenuFlyoutItem Text="Camera" Clicked="KitchenCamera"/>
+            <MenuFlyoutItem Text="Outlet" Clicked="KitchenOutlet"/>
+            <MenuFlyoutItem Text="Lock" Clicked="KitchenLock"/>
+
+        </MenuBarItem>
+  </ContentPage.MenuBarItems>
+    
+   
+
+    <ScrollView>
+
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="130" />
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackLayout x:Name="A" Grid.Row="1" Grid.Column="0"></StackLayout>
+
+            <StackLayout x:Name ="B" Grid.Row="1" Grid.Column="1"></StackLayout>
+
+            <StackLayout x:Name ="C" Grid.Row="1" Grid.Column="2"></StackLayout>
+
+            <StackLayout x:Name ="D" Grid.Row="1" Grid.Column="3"></StackLayout>
+
+            <StackLayout x:Name ="E" Grid.Row="1" Grid.Column="4"></StackLayout>
+
+            <StackLayout x:Name ="F" Grid.Row="1" Grid.Column="5"></StackLayout>
+
+            <StackLayout x:Name ="G" Grid.Row="1" Grid.Column="6"></StackLayout>
+
+        </Grid>
+
+    </ScrollView>
+    
+</ContentPage>

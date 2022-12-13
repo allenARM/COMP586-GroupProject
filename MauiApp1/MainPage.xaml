@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:MauiApp1.Helpers"
+             xmlns:sliders="clr-namespace:Syncfusion.Maui.Sliders;assembly=Syncfusion.Maui.Sliders"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.ListView;assembly=Syncfusion.Maui.ListView"
+             xmlns:local="clr-namespace:MauiApp1"
+             x:ClassModifier="public"
+             x:Class="MauiApp1.MainPage"
+             BackgroundColor="LightSkyBlue"
+             >
+    <ContentPage.Resources>
+        <Style x:Key="labelStyle"
+               TargetType="Label">
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="TextColor" Value="DarkBlue" />
+            <Setter Property="FontFamily" Value="Arial" />
+            <Setter Property="FontAttributes" Value="Bold"  />
+        </Style>
+    </ContentPage.Resources>
+
+
+</ContentPage>

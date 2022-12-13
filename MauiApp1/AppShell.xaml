@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MauiApp1.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MauiApp1"
+    Shell.FlyoutBehavior="Disabled">
+
+
+    <TabBar>
+
+        <ShellContent  Shell.BackgroundColor="CornflowerBlue"  
+                       Shell.TitleColor="DarkBlue"
+                       Title="Home"
+                       ContentTemplate="{DataTemplate local:MainPage}"
+                       Route="MainPage"/>
+
+        <ShellContent  Shell.BackgroundColor="CornflowerBlue"
+                       Shell.TitleColor="DarkBlue"
+                       Title="Living Room"
+                       ContentTemplate="{DataTemplate local:LivingRoom}"
+                       Route="LivingRoom"/>
+
+        <ShellContent  Shell.BackgroundColor="CornflowerBlue"
+                       Shell.TitleColor="DarkBlue"
+                       Title="Kitchen"
+                       ContentTemplate="{DataTemplate local:Kitchen}"
+                       Route="Kitchen"/>
+        
+        <ShellContent  Shell.BackgroundColor="CornflowerBlue"
+                       Shell.TitleColor="DarkBlue"
+                       Title="Bedroom"
+                       ContentTemplate="{DataTemplate local:Bedroom}"
+                       Route="Bedroom"/>
+        
+        <ShellContent  Shell.BackgroundColor="CornflowerBlue"
+                       Shell.TitleColor="DarkBlue"
+                       Title="Other"
+                       ContentTemplate="{DataTemplate local:Other}"
+                       Route="Other"/>
+
+
+    </TabBar>
+
+   
+    
+</Shell>
+

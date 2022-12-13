@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.Other"
+             BackgroundColor="LightSkyBlue">
+
+    <ContentPage.MenuBarItems>
+        <MenuBarItem Text="ADD DEVICE">
+
+            <MenuFlyoutItem Text="LightBulb" Clicked="OtherLight"/>
+            <MenuFlyoutItem Text="Speaker" Clicked="OtherSpeaker"/>
+            <MenuFlyoutItem Text="TV" Clicked="OtherTv"/>
+            <MenuFlyoutItem Text="Thermostat" Clicked="OtherThermostat"/>
+            <MenuFlyoutItem Text="Camera" Clicked="OtherCamera"/>
+            <MenuFlyoutItem Text="Outlet" Clicked="OtherOutlet"/>
+            <MenuFlyoutItem Text="Lock" Clicked="OtherLock"/>
+
+        </MenuBarItem>
+        
+    </ContentPage.MenuBarItems>
+
+
+
+    <ScrollView>
+
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="130" />
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+           
+            <Entry x:Name="entry" Grid.Row="0" Grid.Column="7"
+                Placeholder="Enter text"
+                Completed="OnEntryCompleted"/>
+
+            <Label x:Name="label1" Grid.Row ="0" Grid.Column="0"></Label>
+            
+            <StackLayout x:Name="A" Grid.Row="1" Grid.Column="0"></StackLayout>
+
+            <StackLayout x:Name ="B" Grid.Row="1" Grid.Column="1"></StackLayout>
+
+            <StackLayout x:Name ="C" Grid.Row="1" Grid.Column="2"></StackLayout>
+
+            <StackLayout x:Name ="D" Grid.Row="1" Grid.Column="3"></StackLayout>
+
+            <StackLayout x:Name ="E" Grid.Row="1" Grid.Column="4"></StackLayout>
+
+            <StackLayout x:Name ="F" Grid.Row="1" Grid.Column="5"></StackLayout>
+
+            <StackLayout x:Name ="G" Grid.Row="1" Grid.Column="6"></StackLayout>
+
+
+        </Grid>
+
+    </ScrollView>
+
+</ContentPage>
