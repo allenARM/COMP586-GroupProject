@@ -1,6 +1,8 @@
 using MauiApp1.BaseDisplay;
 using Syncfusion.Maui.Gauges;
 using Syncfusion.Maui.Sliders;
+using _586FinalProject;
+
 
 namespace MauiApp1;
 public partial class Bedroom : ContentPage
@@ -28,6 +30,7 @@ public partial class Bedroom : ContentPage
 
     public void BedroomLight(object sender, EventArgs e)
     {
+        Light light = new Light();
         string name = "Light Bulb";
         var l = buttons.DeviceLabel(GetBulbIndex(), name);           /* Create device label */
         BulbIndex++;                                                  /* Increment Index */
@@ -43,11 +46,15 @@ public partial class Bedroom : ContentPage
         A.Add(l);
         A.Add(bulb);
         A.Add(s);
+        AddDeviceToRoomCommand addDeviceToRoomCommand = new AddDeviceToRoomCommand(Globals.bedroom, light);
+        Controller controller = new Controller(addDeviceToRoomCommand);
+        controller.ExecuteCommand();
 
         void OnValueChanged(object sender, SliderValueChangedEventArgs e)   /* toggle light  */
         {
             double value = e.NewValue;
             LightBulbDisplay.toggleLight(value, bulb);
+            light.Brightness = value;
         }
 
         void OnClick(object sender, EventArgs e)      /* device deleted, pop off display stack */
@@ -58,11 +65,15 @@ public partial class Bedroom : ContentPage
             A.RemoveAt(i + 2);
             A.RemoveAt(i + 1);
             A.RemoveAt(i);
+            RemoveDeviceFromRoomCommand removeDeviceFromRoomCommand = new RemoveDeviceFromRoomCommand(Globals.bedroom, light);
+            Controller controller = new Controller(removeDeviceFromRoomCommand);
+            controller.ExecuteCommand();
         }
 
     }
     private void BedroomSpeaker(object sender, EventArgs e)
     {
+        Speaker speaker1 = new Speaker();
         string name = "Speaker";
         var l = buttons.DeviceLabel(GetSpeakerIndex(), name);         /* Create device label */
         SpeakerIndex++;                                                 /* Increment Index */
@@ -78,11 +89,15 @@ public partial class Bedroom : ContentPage
         B.Add(l);
         B.Add(speaker);
         B.Add(s);
+        AddDeviceToRoomCommand addDeviceToRoomCommand = new AddDeviceToRoomCommand(Globals.bedroom, speaker1);
+        Controller controller = new Controller(addDeviceToRoomCommand);
+        controller.ExecuteCommand();
 
         void OnValueChanged(object sender, SliderValueChangedEventArgs e)   /* toggle volume */
         {
             double value = e.NewValue;
             SpeakerDisplay.toggleSpeaker(value, speaker);
+            speaker1.Volume = value;
         }
 
         void OnClick(object sender, EventArgs e)                /* device deleted, pop off display stack */
@@ -93,11 +108,15 @@ public partial class Bedroom : ContentPage
             B.RemoveAt(i + 2);
             B.RemoveAt(i + 1);
             B.RemoveAt(i);
+            RemoveDeviceFromRoomCommand removeDeviceFromRoomCommand = new RemoveDeviceFromRoomCommand(Globals.bedroom, speaker1);
+            Controller controler = new Controller(removeDeviceFromRoomCommand);
+            controler.ExecuteCommand();
         }
     }
 
     private void BedroomThermostat(object sender, EventArgs e)
     {
+        Thermostat thermostat1 = new Thermostat();
         string name = "Thermostat";
         var l = buttons.DeviceLabel(GetThermIndex(), name);           /* create device label */
         ThermIndex++;                                               /* increment device index */
@@ -136,6 +155,9 @@ public partial class Bedroom : ContentPage
         C.Add(off);
         C.Add(CoolSwitch);
         C.Add(HeatSwitch);
+        AddDeviceToRoomCommand addDeviceToRoomCommand = new AddDeviceToRoomCommand(Globals.bedroom, thermostat1);
+        Controller controller = new Controller(addDeviceToRoomCommand);
+        controller.ExecuteCommand();
 
         del.Clicked += OnClick;                                   /* register event handlers*/
         coolToggle.ValueChanged += CoolToggle_ValueChanged;
@@ -151,24 +173,30 @@ public partial class Bedroom : ContentPage
             C.RemoveAt(i + 2);
             C.RemoveAt(i + 1);
             C.RemoveAt(i);
+            RemoveDeviceFromRoomCommand removeDeviceFromRoomCommand = new RemoveDeviceFromRoomCommand(Globals.bedroom, thermostat1);
+            Controller controller = new Controller(removeDeviceFromRoomCommand);
+            controller.ExecuteCommand();
         }
 
         void CoolToggle_ValueChanged(object sender, Syncfusion.Maui.Gauges.ValueChangedEventArgs e)   /* toggle cool */
         {
             double value = e.Value;
             ThermostatDisplay.toggleCool(value, off, CoolSwitch, HeatSwitch);
+            thermostat1.ThermostatMode = ThermostatMode.cool;
         }
 
         void HeatToggle_ValueChanged(object sender, Syncfusion.Maui.Gauges.ValueChangedEventArgs e)   /* toggle head */
         {
             double value = e.Value;
             ThermostatDisplay.toggleHeat(value, off, HeatSwitch, CoolSwitch);
+            thermostat1.ThermostatMode = ThermostatMode.heat;
         }
 
     }
 
     public void BedroomTv(object sender, EventArgs e)
     {
+        SmartTv tv = new SmartTv();
         string name = "Tv";
         var l = buttons.DeviceLabel(GetTvIndex(), name);           /* create device label */
         TvIndex++;                                                  /* increment device index */
@@ -185,6 +213,9 @@ public partial class Bedroom : ContentPage
         D.Add(volume);
         D.Add(slider);
         D.Add(channel);
+        AddDeviceToRoomCommand addDeviceToRoomCommand = new AddDeviceToRoomCommand(Globals.bedroom, tv);
+        Controller controller = new Controller(addDeviceToRoomCommand);
+        controller.ExecuteCommand();
 
         volume.HorizontalOptions = LayoutOptions.Center;              /* event handlers */
         slider.ValueChanged += OnValueChanged;
@@ -200,16 +231,21 @@ public partial class Bedroom : ContentPage
             D.RemoveAt(i + 2);
             D.RemoveAt(i + 1);
             D.RemoveAt(i);
+            RemoveDeviceFromRoomCommand removeDeviceFromRoomCommand = new RemoveDeviceFromRoomCommand(Globals.bedroom, tv);
+            Controller controller = new Controller(removeDeviceFromRoomCommand);
+            controller.ExecuteCommand();
         }
 
         void OnValueChanged(object sender, SliderValueChangedEventArgs e)   /* toggle light  */
         {
             double value = e.NewValue;
             volume.Text = value.ToString("F0");
+            tv.Volume = value;
         }
     }
     private void BedroomOutlet(object sender, EventArgs e)
     {
+        Outlet outlet1 = new Outlet();
         string name = "Outlet";
         var l = buttons.DeviceLabel(GetOutletIndex(), name);           /*create label */
         OutletIndex++;                                                /* increment device index */
@@ -228,6 +264,9 @@ public partial class Bedroom : ContentPage
         E.Add(status);
         E.Add(outlet);
         E.Add(toggle);
+        AddDeviceToRoomCommand addDeviceToRoomCommand = new AddDeviceToRoomCommand(Globals.bedroom, outlet1);
+        Controller controller = new Controller(addDeviceToRoomCommand);
+        controller.ExecuteCommand();
 
         void OnClick(object sender, EventArgs e)                 /* device delete, pop off display stack */
         {
@@ -238,16 +277,21 @@ public partial class Bedroom : ContentPage
             E.RemoveAt(i + 2);
             E.RemoveAt(i + 1);
             E.RemoveAt(i);
+            RemoveDeviceFromRoomCommand removeDeviceFromRoomCommand = new RemoveDeviceFromRoomCommand(Globals.bedroom, outlet1);
+            Controller controller = new Controller(removeDeviceFromRoomCommand);
+            controller.ExecuteCommand();
         }
 
         void OnToggled(object sender, ToggledEventArgs e)        /* toggle */
         {
             OutletDisplay.ToggleOutlet(status, toggle);         /* toggle returns true or false, status display status*/
+            outlet1.Toggle();
         }
 
     }
     private void BedroomCamera(object sender, EventArgs e)
     {
+        Camera camera1 = new Camera();
         string name = "Camera";
         var l = buttons.DeviceLabel(GetCameraIndex(), name);           /* create label */
         CameraIndex++;                                                 /* increment device index */
@@ -266,6 +310,9 @@ public partial class Bedroom : ContentPage
         F.Add(status);
         F.Add(camera);
         F.Add(toggle);
+        AddDeviceToRoomCommand addDeviceToRoomCommand = new AddDeviceToRoomCommand(Globals.bedroom, camera1);
+        Controller controller = new Controller(addDeviceToRoomCommand);
+        controller.ExecuteCommand();
 
         void OnClick(object sender, EventArgs e)                 /* device delete, pop off display stack */
         {
@@ -276,16 +323,21 @@ public partial class Bedroom : ContentPage
             F.RemoveAt(i + 2);
             F.RemoveAt(i + 1);
             F.RemoveAt(i);
+            RemoveDeviceFromRoomCommand removeDeviceFromRoomCommand = new RemoveDeviceFromRoomCommand(Globals.bedroom, camera1);
+            Controller controller = new Controller(removeDeviceFromRoomCommand);
+            controller.ExecuteCommand();
         }
 
         void OnToggled(object sender, ToggledEventArgs e)            /* toggle */
         {
             CameraDisplay.ToggleCamera(status, toggle);              /* toggle is true or false, status displays status*/
+            camera1.Toggle();
         }
 
     }
     private void BedroomLock(object sender, EventArgs e)
     {
+        Lock lock1 = new Lock();
         string name = "Lock";
         var l = buttons.DeviceLabel(GetLockIndex(), name);         /*create label */
         LockIndex++;                                                /* increment device index */
@@ -304,6 +356,9 @@ public partial class Bedroom : ContentPage
         G.Add(status);
         G.Add(lockk);
         G.Add(toggle);
+        AddDeviceToRoomCommand addDeviceToRoomCommand = new AddDeviceToRoomCommand(Globals.bedroom, lock1);
+        Controller controller = new Controller(addDeviceToRoomCommand);
+        controller.ExecuteCommand();
 
         void OnClick(object sender, EventArgs e)                 /* device delete, pop off display stack */
         {
@@ -314,11 +369,15 @@ public partial class Bedroom : ContentPage
             G.RemoveAt(i + 2);
             G.RemoveAt(i + 1);
             G.RemoveAt(i);
+            RemoveDeviceFromRoomCommand removeDeviceFromRoomCommand = new RemoveDeviceFromRoomCommand(Globals.bedroom, lock1);
+            Controller controller = new Controller(removeDeviceFromRoomCommand);
+            controller.ExecuteCommand();
         }
 
         void OnToggled(object sender, ToggledEventArgs e)        /* toggle */
         {
             LockDisplay.ToggleLock(status, toggle);         /* toggle returns true or false, status display status*/
+            lock1.Toggle();
         }
 
     }

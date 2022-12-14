@@ -40,11 +40,6 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-           
-            <Entry x:Name="entry" Grid.Row="0" Grid.Column="7"
-                Placeholder="Enter text"
-                Completed="OnEntryCompleted"/>
-
             <Label x:Name="label1" Grid.Row ="0" Grid.Column="0"></Label>
             
             <StackLayout x:Name="A" Grid.Row="1" Grid.Column="0"></StackLayout>
